@@ -2,7 +2,9 @@
 FROM node:20-slim AS builder
 WORKDIR /app
 COPY package.json ./
-RUN npm install
+# --include=dev ensures devDependencies (vite, tailwind, etc.) are installed
+# regardless of NODE_ENV set by the parent environment
+RUN npm install --include=dev
 COPY . .
 RUN npm run build
 
